@@ -1,5 +1,9 @@
-export default class Application {
+
+
+class Application {
     doSomething() {
-        
+
     }
 }
+
+export default Application
