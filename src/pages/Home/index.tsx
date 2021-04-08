@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import UserAccount from '../../components/UserAccount/UserAccount'
+import Test from '../../components/Test'
 
 import './index.less'
 
 export default function Index() {
-
+    
     const [ user ] = useState(new UserAccount('DueTy', 123))
     const [list, setList] = useState<UserAccount[]>([])
     const [searchKey, setSearchKey] = useState('')
+    const [testObject, setTest] = useState(new Test())
 
     return (
         <div>
