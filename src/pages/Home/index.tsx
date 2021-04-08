@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import UserAccount from '../../components/ts-learning/UserAccount'
+import UserAccount from '../../components/UserAccount/UserAccount'
 
 import './index.less'
 
@@ -7,21 +7,36 @@ export default function Index() {
 
     const [ user ] = useState(new UserAccount('DueTy', 123))
     const [list, setList] = useState<UserAccount[]>([])
+    const [searchKey, setSearchKey] = useState('')
 
     return (
         <div>
-            <div 
+            <input type="text" value={searchKey} onChange={handleSearch} />
+            <h2 
                 className="main-user"
                 onClick={handleFirstClick}>
                 {user.name}-{user.id}
-            </div>
+            </h2>
             {list.map((item, index) => (
-            <div key={index}>{item.name}-{item.id}</div>
+            <h2 key={index}>{item.name}-{item.id}</h2>
             ))}
         </div>
     )
+
+    function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+        const id = e.target.value
+        setSearchKey(id)
+        const hasMemeber = getUserById(Number(id))
+        console.log('列表中有该成员嘛？ ', !!hasMemeber)
+    }
+
+    function getUserById(id:number){
+        const userFound = list.find(u => u.id === id)
+        return userFound
+    }
     
     function handleFirstClick() {
-        setList([ ...list, new UserAccount('DueTy', user.id + 1)])
+        const lastOneId = list[list.length - 1] ? list[list.length - 1].id : user.id
+        setList([ ...list, new UserAccount('DueTy', lastOneId + 1)])
     }
 }
